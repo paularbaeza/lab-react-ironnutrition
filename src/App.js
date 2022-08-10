@@ -1,30 +1,28 @@
 import './App.css';
-import foods from './foods.json';
+import foodList from './foods.json';
 import FoodBox from './components/FoodBox';
+import { useState } from 'react';
 
-const foodsArr = foods;
+const foodsArr = foodList;
+
 
 function App() {
+
+//estados
+
+  const [food, setFood] = useState(foodList)
+
   return (
     <div className="App">
       <h2>Food list</h2>
+
+
       {foodsArr.map((eachFood, index) => {
         return (
-          <div key={(eachFood, index)}>
-            <p>{eachFood.name}</p>
-            <img src={eachFood.image} alt="food" width={100} />
-          </div>
+         <FoodBox eachFood= {eachFood} key={eachFood +index}/>
         );
       })}
 
-      <FoodBox
-        food={{
-          name: 'Orange',
-          calories: 85,
-          image: 'https://i.imgur.com/abKGOcv.jpg',
-          servings: 1,
-        }}
-      />
     </div>
   );
 }

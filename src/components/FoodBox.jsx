@@ -2,8 +2,8 @@ import { Card, Col, Button } from 'antd';
 
 // Iteration 2
 function FoodBox(props) {
-    console.log(props)
-    const {name, calories, image, servings} = props.food
+    //console.log(props)
+    const {name, calories, image, servings} = props.eachFood
   return (
     <Col>
       <Card
