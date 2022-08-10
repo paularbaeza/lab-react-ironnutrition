@@ -14,6 +14,7 @@ function App() {
 
   const [food, setFood] = useState(foodList)
   const [displayedFood, setDisplayedFood] =useState(foodList)
+  const [isFormShowed, setIsFormShowed]=useState(false)
 
   const addFood = (foodToAdd) => {
     const foodCopy = [...food]
@@ -48,11 +49,21 @@ function App() {
     setFood (arrWithoutDeletedOne)
   }
 
+  const toggleFormShowed = () => {
+    if (isFormShowed===true){
+      setIsFormShowed(false)
+    }else{
+      setIsFormShowed(true)
+    }
+    
+  }
+
   return (
     <div className="App">
     <Search filterFunction={filterFood}/>
     <br />
-    <AddFoodForm addFoodFunction = {addFood}/>
+    <button onClick={toggleFormShowed}>{isFormShowed===true? "Hide form" : "Add new food" }</button>
+    {isFormShowed === true ? <AddFoodForm addFoodFunction = {addFood}/> : null}
     <br />
     <br />
       <h2>Food list</h2>
