@@ -7,7 +7,7 @@ function FoodBox(props) {
     const {deleteFunction} = props
 
     const deleteFood = (name) => {
-      console.log(name)
+      //console.log(name)
       deleteFunction (name)
     }
 

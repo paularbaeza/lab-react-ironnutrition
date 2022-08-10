@@ -6,78 +6,100 @@ import Search from './components/Search';
 
 import { useState } from 'react';
 
-
-
 function App() {
+  //estados
 
-//estados
-
-  const [food, setFood] = useState(foodList)
-  const [displayedFood, setDisplayedFood] =useState(foodList)
-  const [isFormShowed, setIsFormShowed]=useState(false)
+  const [food, setFood] = useState(foodList);
+  const [displayedFood, setDisplayedFood] = useState(foodList);
+  const [isFormShowed, setIsFormShowed] = useState(false);
+  const [isDisplayedFoodEmpty, setIsDisplayedFoodEmpty] = useState(false);
 
   const addFood = (foodToAdd) => {
-    const foodCopy = [...food]
-    const displayedFoodCopy= [...displayedFood]
+    const foodCopy = [...food];
+    const displayedFoodCopy = [...displayedFood];
 
-    if(food.name!=="" && food.image !=="" && food.calories!==0 && food.servings!==0){
-      foodCopy.push(foodToAdd)}
-    if(displayedFood.name!=="" && displayedFood.image !=="" && displayedFood.calories!==0 && displayedFood.servings!==0){
-    displayedFoodCopy.push(foodToAdd)}
+    if (
+      food.name !== '' &&
+      food.image !== '' &&
+      food.calories !== 0 &&
+      food.servings !== 0
+    ) {
+      foodCopy.push(foodToAdd);
+    }
+    if (
+      displayedFood.name !== '' &&
+      displayedFood.image !== '' &&
+      displayedFood.calories !== 0 &&
+      displayedFood.servings !== 0
+    ) {
+      displayedFoodCopy.push(foodToAdd);
+    }
 
-    setFood(foodCopy)
-    setDisplayedFood(displayedFoodCopy)
+    setFood(foodCopy);
+    setDisplayedFood(displayedFoodCopy);
     //console.log(foodCopy)
-  }
+  };
 
   const filterFood = (searchValue) => {
     //console.log(search)
-    let searchResults = food.filter((eachFood)=> {
-      return eachFood.name.includes (searchValue)      
-    })
-    setDisplayedFood(searchResults)
-  }
+    let searchResults = food.filter((eachFood) => {
+      return eachFood.name.includes(searchValue);
+    });
+    setDisplayedFood(searchResults);
+  };
 
   const deleteFood = (nameToDelete) => {
     const arrDisplayedWithoutDeletedOne = displayedFood.filter((eachFood) => {
-      return eachFood.name !== nameToDelete
-    })
+      return eachFood.name !== nameToDelete;
+    });
     const arrWithoutDeletedOne = food.filter((eachFood) => {
-      return eachFood.name !== nameToDelete
-    })
-    setDisplayedFood(arrDisplayedWithoutDeletedOne)
-    setFood (arrWithoutDeletedOne)
-  }
+      return eachFood.name !== nameToDelete;
+    });
+    setDisplayedFood(arrDisplayedWithoutDeletedOne);
+    setFood(arrWithoutDeletedOne);
+    if (arrDisplayedWithoutDeletedOne.length === 0) {
+      console.log('OOPPPSSS');
+      setIsDisplayedFoodEmpty(true);
+    }
+  };
 
   const toggleFormShowed = () => {
-    if (isFormShowed===true){
-      setIsFormShowed(false)
-    }else{
-      setIsFormShowed(true)
+    if (isFormShowed === true) {
+      setIsFormShowed(false);
+    } else {
+      setIsFormShowed(true);
     }
-    
-  }
+  };
 
   return (
     <div className="App">
-    <Search filterFunction={filterFood}/>
-    <br />
-    <button onClick={toggleFormShowed}>{isFormShowed===true? "Hide form" : "Add new food" }</button>
-    {isFormShowed === true ? <AddFoodForm addFoodFunction = {addFood}/> : null}
-    <br />
-    <br />
+      <Search filterFunction={filterFood} />
+      <br />
+      <button onClick={toggleFormShowed}>
+        {isFormShowed === true ? 'Hide form' : 'Add new food'}
+      </button>
+      {isFormShowed === true ? <AddFoodForm addFoodFunction={addFood} /> : null}
+      <br />
+      <br />
       <h2>Food list</h2>
 
-      <div id="each-food">
-      {displayedFood.map((eachFood, index) => {
-        return (
-         <FoodBox deleteFunction={deleteFood} eachFood= {eachFood} key={eachFood +index}/> 
-
-        );
-      })}
-      </div>
-<hr />
+      {isDisplayedFoodEmpty === true ? (
+        'Ooooopsss! There is no more contect to show! '
+      ) : (
+        <div id="each-food">
+          {displayedFood.map((eachFood, index) => {
+            return (
+              <FoodBox
+                deleteFunction={deleteFood}
+                eachFood={eachFood}
+                key={eachFood + index}
+              />
+            );
+          })}
+        </div>
+      )}
       
+      <hr />
     </div>
   );
 }
