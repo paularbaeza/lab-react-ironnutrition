@@ -11,7 +11,8 @@ function Search(props) {
     const handleSearch = (event) => {
         let searchValue = event.target.value
         setSearch(searchValue)
-        console.log(search)
+        //console.log(search)
+        
         filterFunction(searchValue)
     }
 

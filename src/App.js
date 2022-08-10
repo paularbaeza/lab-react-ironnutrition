@@ -37,6 +37,17 @@ function App() {
     setDisplayedFood(searchResults)
   }
 
+  const deleteFood = (nameToDelete) => {
+    const arrDisplayedWithoutDeletedOne = displayedFood.filter((eachFood) => {
+      return eachFood.name !== nameToDelete
+    })
+    const arrWithoutDeletedOne = food.filter((eachFood) => {
+      return eachFood.name !== nameToDelete
+    })
+    setDisplayedFood(arrDisplayedWithoutDeletedOne)
+    setFood (arrWithoutDeletedOne)
+  }
+
   return (
     <div className="App">
     <Search filterFunction={filterFood}/>
@@ -49,7 +60,7 @@ function App() {
       <div id="each-food">
       {displayedFood.map((eachFood, index) => {
         return (
-         <FoodBox eachFood= {eachFood} key={eachFood +index}/> 
+         <FoodBox deleteFunction={deleteFood} eachFood= {eachFood} key={eachFood +index}/> 
 
         );
       })}
