@@ -1,23 +1,24 @@
-import logo from './logo.svg';
 import './App.css';
+import foods from './foods.json';
+
+const foodsArr = foods
+
 
 function App() {
+
+
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div>
+    <h2>Food list</h2>
+      {foodsArr.map ((eachFood, index) => {
+        return (
+          <div>
+            <p>{eachFood.name}</p>
+            <img src={eachFood.image} alt="food" width={100} />
+          </div>
+        )
+      })}
     </div>
   );
 }
